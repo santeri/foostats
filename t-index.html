@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>foostats</title>
+  <body>
+    <h1>Hello {name}</h1>
+    {.section games}
+      <h2>Played matches:</h2>
+      <table>
+      <tr><th>p1</th><th>p2</th><th>score</th><th>p3</th><th>p4</th></tr>
+      {.repeated section @}
+        <tr>
+          <td>{p1}</td>
+          <td>{p2}</td>
+          <td>{s1}-{s2}</td>
+          <td>{p3}</td>
+          <td>{p4}</td>
+        </tr>
+      {.end}
+      </table>
+    {.or}
+      <h2>No played matches yet!</h2>
+    {.end}
+    <form action="add" method="POST">
+      <input name="p1" autofocus required placeholder="player 1 name">
+      <input name="p2" required placeholder="player 2 name">
+      <input name="s1" required type="number" min="0" max="2" size="1">
+      <input name="s2" required type="number" min="0" max="2" size="1">
+      <input name="p3" required placeholder="player 3 name">
+      <input name="p4" required placeholder="player 4 name">
+      <input type="submit" value="add">
+      </form>
+  </body>
+</html>
