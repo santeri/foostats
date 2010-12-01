@@ -1,9 +1,9 @@
 var http = require('http');
 var url = require('url');
-var jsontemplate = require('./jsontemplate.js');
 var fs = require('fs');
 var sys = require('sys');
 var util = require('util');
+var jsontemplate = require('./jsontemplate.js');
 var sqlite = require('./node-sqlite/sqlite');
 
 var db = new sqlite.Database();
@@ -18,38 +18,38 @@ function addmatch(p1, p2, p3, p4, s1, s2) {
                [p1,p2,p3,p4,s1,s2],
                function (error, rows) {
                    if (error) throw error;
-                   console.log("row added ok");});}
+                   console.log("row added ok");
+               });
+}
 
 function matches(fn) {
     db.prepare("SELECT * from matches", function(error, statement) {
         if (error) throw error;
         statement.fetchAll(function (error, rows) {
             fn(rows);
-            statement.finalize(function(error) {});});});}
-                    
+            statement.finalize(function(error) {});
+        });
+    });
+}
+
+function template(res, name, values) {
+    fs.readFile('t-'+name+'.html', function (err, data) {
+        if (err) throw err;
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(jsontemplate.Template(data.toString('utf8')).expand(values));
+    });
+}
+
 var handlers = {
   '/' : function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    fs.readFile('t-index.html', function (err, data) {
-      if (err) throw err;
       matches(function(rows) {
-          var t = jsontemplate.Template(data.toString('utf8'));
-          var text = t.expand({'name': 'js', 'matches' : rows});    
-          res.end(text);
+          template(res, 'index', {'matches':rows});
       });
-    });
   },
   '/list' : function(req, res) {
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      matches(function(rows) {
-          console.log(rows);
-          fs.readFile('t-list.html', function (err, data) {
-              if (err) throw err;
-              var t = jsontemplate.Template(data.toString('utf8'));
-              var text = t.expand({'matches': 'rows'});    
-              res.end(text);
-          });
-      });
+      res.writeHead(303 /* see other */, {'Location': '/'});
+      console.log('list not implemented');
+      res.end('');
   },
   '/add' : function(req, res) {
       var q = url.parse(req.url, true).query;
