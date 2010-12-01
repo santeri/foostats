@@ -374,17 +374,16 @@ var _PredicateSection = function(spec) {
 
 
 function _Execute(statements, context, callback) {
-  for (var i=0; i<statements.length; i++) {
-    var statement = statements[i];
-
-    if (typeof(statement) == 'string') {
-      callback(statement);
-    } else {
-      var func = statement[0];
-      var args = statement[1];
-      func(args, context, callback);
+    for (var i=0; i<statements.length; i++) {
+        var statement = statements[i];
+        if (typeof(statement) == 'string') {
+            callback(statement);
+        } else {
+            var func = statement[0];
+            var args = statement[1];
+            func(args, context, callback);
+        }
     }
-  }
 }
 
 function _DoSubstitute(statement, context, callback) {

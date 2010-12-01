@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <title>foostats</title>
   <body>
-    <h1>Hello {name}</h1>
-    {.section games}
+    <h1>Foostats</h1>
+    {.section matches}
       <h2>Played matches:</h2>
       <table>
-      <tr><th>p1</th><th>p2</th><th>score</th><th>p3</th><th>p4</th></tr>
+      <tr><th>Player 1</th><th>Player 2</th><th>Score</th><th>Player
+	3</th><th>Player 4</th></tr>
       {.repeated section @}
         <tr>
           <td>{p1}</td>
@@ -22,7 +23,7 @@
     {.or}
       <h2>No played matches yet!</h2>
     {.end}
-    <form action="add" method="POST">
+    <form action="add" method="GET">
       <input name="p1" autofocus required placeholder="player 1 name">
       <input name="p2" required placeholder="player 2 name">
       <input name="s1" required type="number" min="0" max="2" size="1">
