@@ -4,3 +4,9 @@
 [submodule "node-sqlite"]
 	path = node-sqlite
 	url = https://github.com/orlandov/node-sqlite.git
+[submodule "coffee-script"]
+	path = coffee-script
+	url = https://github.com/jashkenas/coffee-script.git
+[submodule "coffee-mode"]
+	path = coffee-mode
+	url = https://github.com/defunkt/coffee-mode.git
