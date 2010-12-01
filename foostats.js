@@ -10,7 +10,7 @@ var db = new sqlite.Database();
 db.open("foostats.db", function(error) {
     if (error) throw error;});
 
-var create_sql = "CREATE TABLE matches (id integer primary key autoincrement, ts timestamp not null, p1 text, p2 text, p3, text, p4 text, s1 int, s2 int);";
+var create_sql = "CREATE TABLE matches (id integer primary key autoincrement, ts datetime not null, p1 text not null, p2 text not null, p3 text not null, p4 text not null, s1 int not null, s2 int not null)";
 
 function addmatch(p1, p2, p3, p4, s1, s2) {
     db.execute("INSERT INTO matches (ts, p1, p2, p3, p4, s1, s2) " +
