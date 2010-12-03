@@ -44,6 +44,12 @@ redirect = (url, res) ->
 redirect_root = (res) ->
   redirect '/', res
 
+collect_body = (req, fn) ->
+  body = ""
+  req.setEncoding 'utf8'
+  req.on 'data', (chunk) -> body += chunk
+  req.on 'end', () -> fn(body)
+
 handlers =
   '/' : (req, res) ->
     matches (rows) ->
@@ -60,17 +66,10 @@ handlers =
 
   '/delete' : (req, res) ->
     console.log req.method, req.url.toString()
-    body = ""
-    req.setEncoding 'utf8'
-    req.on 'data', (chunk) ->
-      console.log 'data'
-      console.log chunk.toString()
-      body += chunk.toString()
-    req.on 'end', () ->
-      console.log "end"
-      console.log body
+    collect_body req, (body) ->
       if body != ""
-        q = querystring.parse(body).query
+        q = querystring.parse(body)
+        console.log "deleting row " + q.id
         db.execute "DELETE FROM matches WHERE id = ?", [q.id], (error, rows) ->
           throw error if error
           console.log "row " + q.id + " deleted"
