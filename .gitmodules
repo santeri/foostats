@@ -10,3 +10,12 @@
 [submodule "coffee-mode"]
 	path = coffee-mode
 	url = https://github.com/defunkt/coffee-mode.git
+[submodule "jquery"]
+	path = jquery
+	url = https://github.com/jquery/jquery.git
+[submodule "jquery-ui"]
+	path = jquery-ui
+	url = https://github.com/jquery/jquery-ui.git
+[submodule "json-template"]
+	path = json-template
+	url = https://github.com/andychu/json-template.git
