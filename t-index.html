@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>foostats</title>
-    <script type="application/javascript" href="scripts/jquery.js"/>
-    <script type="application/javascript" href="scripts/jquery-ui.js"/>
+    <link type="text/css" href="jquery-ui/themes/base/jquery.ui.all.css" rel="Stylesheet" />	
+    <script type="application/javascript" src="scripts/jquery.js"></script>
+    <script type="application/javascript" src="jquery-ui/ui/jquery.ui.core.js"></script>
+    <script type="application/javascript" src="jquery-ui/ui/jquery.ui.widget.js"></script>
+    <script type="application/javascript" src="jquery-ui/ui/jquery.ui.position.js"></script>
+    <script type="application/javascript" src="jquery-ui/ui/jquery.ui.autocomplete.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#p1').autocomplete({.meta-left} source : 'playername'{.meta-right});
+        $('#p2').autocomplete({.meta-left} source : 'playername'{.meta-right});
+        $('#p3').autocomplete({.meta-left} source : 'playername'{.meta-right});
+        $('#p4').autocomplete({.meta-left} source : 'playername'{.meta-right});
+      });
+    </script>
   </head>
   <body>
-    <h1>Foostats</h1>
+     <a href="">Link</a>
+<h1>Foostats</h1>
     <nav>
       <a href="/list">List matches</a>
     </nav>
-    {.section matches}
+   {.section matches}
       <h2>Played matches:</h2>
       <table>
       <tr><th>Player 1</th><th>Player 2</th>
@@ -32,13 +45,25 @@
       <h2>No played matches yet!</h2>
     {.end}
     <form action="add">
-      <input name="p1" autofocus required placeholder="player 1 name" size="12"/>
-      <input name="p2" required placeholder="player 2 name" size="12"/>
+      <div class="ui-widget">
+       <input name="p1" id="p1" autofocus required placeholder="player 1 name" size="12"/>
+      </div>
+      <div class="ui-widget">
+      <input name="p2" id="p2" required placeholder="player 2 name" size="12"/>
+      </div>
+      <div class="ui-widget">
       <input name="s1" required type="number" min="0" max="2" size="1"/>
-      <input name="s2" required type="number" min="0" max="2" size="1"/>
-      <input name="p3" required placeholder="player 3 name" size="12"/>
-      <input name="p4" required placeholder="player 4 name" size="12"/>
-      <input type="submit" value="add"/>
-      </form>
+	</div>
+      <div class="ui-widget">
+        <input name="s2" required type="number" min="0" max="2" size="1"/>
+      </div>
+      <div class="ui-widget">
+       <input name="p3" id="p3" required placeholder="player 3 name" size="12"/>
+      </div>
+      <div class="ui-widget">
+       <input name="p4" id="p4" required placeholder="player 4 name" size="12"/>
+      </div>
+    <input type="submit" value="add"/>
+     </form>
   </body>
 </html>

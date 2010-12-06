@@ -76,6 +76,13 @@ handlers =
       else
         log "delete: no body"
       redirect('/list', res)
+  '/playername' : (req, res, err_fn) ->
+    log req.method, req.url.toString()
+    q = url.parse(req.url, true).query
+    log q.term
+    if q.term
+      res.writeHead 200, 'Content-Type': 'text/plain'
+      res.end '["aasdasd","bdasdsas"]'
 
   '/' : (req, res, err_fn) ->
     matches (rows) ->
@@ -84,9 +91,11 @@ handlers =
 content_types =
   '.js' : 'application/javascript'
   '.css' : 'text/css'
+  '.png' : 'image/png'
+  '.jpg' : 'image/jpeg'
 
 
-# server a file at path to res or throw an exception
+# serve a file at path to res with content type or throw an exception
 servefile = (res, path, err_fn) ->
   if path[0] == '/' # strip leading slash
     path = path.substring(1)
@@ -109,6 +118,7 @@ server = http.createServer (req,res) ->
 
   try
     if path.match('/scripts') then servefile(res, path, error)
+    else if path.match('/jquery-ui') then servefile(res, path, error)
     else if handler = handlers[path]
       handler req, res, error
     else
